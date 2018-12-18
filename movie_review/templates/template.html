@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="Default">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='favicon.png')}}">
+    
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.min.css')}}">
+	
+    
+	<script src="{{ url_for('static', filename='js/jquery-2.1.0.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/blocs.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/jqBootstrapValidation.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/formHandler.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/lazysizes.min.js')}}" defer></script>
+
+	{% if title %}
+		<title>Movie Review - {{ title }}</title>
+	{% else %}
+		<title>Movie Review</title>
+	{% endif %}
+
+<!-- Google Analytics -->
+ 
+<!-- Google Analytics END -->
+    
+</head>
+<body>
+<!-- Main container -->
+<div class="page-container">
+    
+<!-- bloc-0 navigation bar-->
+<div class="bloc l-bloc bgc-white" id="bloc-0">
+	<div class="container bloc-sm">
+		<nav class="navbar nav-invert row">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="home"><img src="{{ url_for('static', filename='img/logo.png')}}" alt="logo" /></a>
+				<button id="nav-toggle" type="button" class="ui-navbar-toggle navbar-toggle" data-toggle="collapse" data-target=".navbar-1">
+					<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="collapse navbar-collapse navbar-1">
+				<ul class="site-navigation nav navbar-nav">
+					<li>
+						<a href="{{ url_for('home') }}">Home</a>
+					</li>
+					<li>
+						<a href="{{ url_for('about') }}">About</a>
+					</li>
+					<li>
+						<a href="{{ url_for('review') }}">Review</a>
+					</li>
+					{% if current_user.is_authenticated %}
+						<li>
+							<a href="{{ url_for('logout') }}">Logout</a>
+						</li>
+						<li>
+							<a href="{{ url_for('account') }}">Profile</a>
+						</li>
+					{% else %}
+						<li>
+							<a href="{{ url_for('login') }}">Login</a>
+						</li>
+						<li>
+							<a href="{{ url_for('register') }}">Register</a>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
+		</nav>
+	</div>
+</div>
+<!-- bloc-0 END -->
+
+<!-- get flask flash messages-->
+{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+		{% for category, message in messages %}
+			<div class="alert alert-{{ category }}">
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endif %}
+{% endwith %}
+
+<!-- bloc-content-->
+{% block content %}{% endblock content%}
+
+<!-- Footer - bloc-4 About info-->
+<div class="bloc bgc-white l-bloc" id="bloc-4">
+	<div class="container bloc-lg">
+		<div class="row">
+			<div class="col-sm-3">
+				<h3 class="mg-md bloc-mob-center-text">
+					About
+				</h3><a href="index.html" class="a-btn a-block bloc-mob-center-text">The team</a><a href="index.html" class="a-btn a-block bloc-mob-center-text">Contact us</a>
+			</div>
+			<div class="col-sm-3">
+				<h3 class="mg-md bloc-mob-center-text">
+					Get the App
+				</h3><a href="index.html" class="a-btn a-block bloc-mob-center-text">iPhone</a><a href="index.html" class="a-btn a-block bloc-mob-center-text">Android</a>
+			</div>
+			<div class="col-sm-3">
+				<h3 class="mg-md bloc-mob-center-text">
+					Follow Us
+				</h3><a href="index.html" class="a-btn a-block bloc-mob-center-text">Twitter</a><a href="index.html" class="a-btn a-block bloc-mob-center-text">Facebook</a>
+			</div>
+			<div class="col-sm-3">
+				<h3 class="mg-md bloc-mob-center-text">
+					Company
+				</h3><a href="index.html" class="a-btn a-block bloc-mob-center-text">Terms of use</a><a href="index.html" class="a-btn a-block bloc-mob-center-text">Privacy</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Footer - bloc-4 END -->
+
+<!-- Footer - bloc-5 -->
+<div class="bloc bgc-white l-bloc" id="bloc-5">
+	<div class="container bloc-lg">
+		<div class="row hidden-lg hidden-md">
+			<div class="col-sm-12">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Footer - bloc-5 END -->
+
+</div>
+<!-- Main container END -->
+    
+
+
+<!-- Preloader -->
+<div id="page-loading-blocs-notifaction"></div>
+<!-- Preloader END -->
+
+</body>
+</html>
