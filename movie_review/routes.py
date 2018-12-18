@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, request
-from movie_review.forms import RegistrationForm, LoginForm
+from movie_review.forms import RegistrationForm, LoginForm, ReviewForm
 from movie_review import app, db, bcrypt
 from movie_review.models import User, Review, Movie
 from flask_login import login_user, current_user, logout_user, login_required
@@ -53,11 +53,27 @@ def login():
     return render_template("login.html", title="Login", form=form)
 
 
-@app.route("/review")
+@app.route("/review", methods=['get', 'post'])
 def review():
     movies = Movie.query.all()
     reviews = Review.query.all()
-    return render_template("review.html", title="Review", movies=movies, reviews=reviews)
+    form = ReviewForm()
+    if form.validate_on_submit():
+        if current_user.is_authenticated:
+            movie = Movie.query.filter_by(name=form.movie_name.data).first()
+            if movie:
+                new_review = Review(title=form.title.data, rate=form.rate.data, content=form.content.data,
+                                    author=current_user, movie_id=movie.id)
+                db.session.add(new_review)
+                db.session.commit()
+                flash(f"Review created for {form.movie_name.data}!", "success")
+                return redirect(url_for("review"))
+            else:
+                flash("Movie name is not correct. Please try again.", "danger")
+        else:
+            flash("Please login your account first", "danger")
+            return redirect(url_for("login"))
+    return render_template("review.html", title="Review", movies=movies, reviews=reviews, form=form)
 
 
 @app.route("/logout")

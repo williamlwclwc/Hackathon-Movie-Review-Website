@@ -36,7 +36,7 @@ class Review(db.Model):
 
 class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(50), nullable=False, unique=True)
     date_released = db.Column(db.Integer, nullable=False)
     type = db.Column(db.String(100), nullable=False)
     cast = db.Column(db.String(100), nullable=False)

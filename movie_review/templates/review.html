@@ -42,7 +42,7 @@
                                 <div class="panel">
                                     <div class="panel-heading">
                                         <h3 class="mg-clear ">
-                                            {{ review.title }}
+                                            {{ review.title }}  rating: {{ review.rate }}
                                         </h3>
                                     </div>
                                     <div class="panel-body">
@@ -58,28 +58,70 @@
             </div>
         </div>
         <!-- Footer - bloc-2 END -->
-
-        <!-- Footer - bloc-3 Review form-->
-        <div class="bloc bgc-white l-bloc " id="bloc-3">
-            <div class="container bloc-md">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <form id="form_16228" novalidate success-msg="submit successfully" fail-msg="submit failed">
-                            <div class="form-group">
-                                <label>
-                                    Review
-                                </label><textarea class="form-control text" rows="8" cols="50" id="newreview"></textarea>
-                            </div>
-                            <div class="text-center">
-                                <button class="bloc-button btn btn-lg btn-d btn-block" type="submit" onclick="postReview()">
-                                    Submit<span class="special-tag-for-editing-text-with-html"></span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer - bloc-3 END -->
     {% endfor %}
+    <!-- Footer - bloc-3 Review form-->
+    <div class="bloc bgc-white l-bloc">
+        <form method="post" action="/review">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Commit Your Movie Review</legend>
+                <div class="form-group">
+                    {{ form.title.label(class="form-control-label") }}
+                    {% if form.title.errors %}
+                        {{ form.title(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.title.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.title(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.movie_name.label(class="form-control-label") }}
+                    {% if form.movie_name.errors %}
+                        {{ form.movie_name(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.movie_name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.movie_name(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.rate.label(class="form-control-label") }}
+                    {% if form.rate.errors %}
+                        {{ form.rate(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.rate.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.rate(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.content.label(class="form-control-label") }}
+                    {% if form.content.errors %}
+                        {{ form.content(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.content.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.content(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="bin-outline-info") }}
+            </div>
+        </form>
+    </div>
+    <!-- Footer - bloc-3 END -->
 {% endblock content %}
