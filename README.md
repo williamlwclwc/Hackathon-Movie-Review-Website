@@ -6,7 +6,7 @@ We use python Flask framework and sqlite3 database to build this website.
 
 ### On Linux/OS X
 
-1.First you need to install python(3.6 or above) and python virtual environment and create your own virtural environment (e.g. venv) under the project folder.
+1.First you need to install python(3.6 or above) and python virtual environment and create your own virtural environment (e.g. venv) under the project folder by typing "$ python -m venv venv".
 
 2.Activate virtual environment by: Open the project folder in terminal, type"$ source ./venv/bin/activate"
 
