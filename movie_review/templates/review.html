@@ -2,21 +2,30 @@
 {% block content %}
     {% for movie in movies %}
         <!-- bloc-1 Movie info-->
-        <div class="bloc bgc-white l-bloc" id="bloc-1">
-            <div class="container bloc-md">
+        <div class="bloc bg-walkway d-bloc full-width-bloc bloc-fill-screen" id="bloc-2">
+            <div class="container">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <img src="{{ url_for('static', filename='img/lazyload-ph.png')}}" data-src="{{ url_for('static', filename='img/placeholder-image.png')}}" class="img-responsive lazyload" />
+                    <div class="col-md-6">
+                        <img src="{{ url_for('static', filename='img/lazyload-ph.png')}}" data-src="{{ url_for('static', filename='img/walkway.jpg')}}" class="img-fluid mx-auto d-block img-style lazyload" />
                     </div>
-                    <div class="col-sm-6">
-                        <h2 class="mg-lg ">
+                    <div class="col-sm-6
+                    align-self-center">
+                        <h2 class="mg-md
+                        h2-movie-style ">
                             Movie name&nbsp;{{ movie.name }}
                         </h2>
-                        <h3 class="mg-sm">
-                            Date: {{ movie.date_released }}<br> Type: {{ movie.type }}<br>Cast: {{ movie.cast }}
+                        <h3 class="mg-md h3-style">
+                            Date: {{ movie.date_released }}
                         </h3>
-                        <p class="mg-lg" >
-                            Movie introduction:<br>{{ movie.info }}
+                        <h3 class="mg-md h3-style">
+                            Type: {{ movie.type }}
+                        </h3>
+                        <h3 class="mg-md h3-style">
+                            Cast: {{ movie.cast }}
+                        </h3>
+                        <p class="p-style" >
+                            Movie Introduction:&nbsp;{{ movie.info }}
+                        <!-- To fix -->
                         </p><a href="index.html" class="btn btn-d btn-lg">More Info</a>
                     </div>
                 </div>
@@ -24,39 +33,31 @@
         </div>
         <!-- bloc-1 END -->
 
-        <!-- ScrollToTop Button -->
-        <a class="bloc-button btn btn-d scrollToTop" onclick="scrollToTarget('1')"><span class="fa fa-chevron-up"></span></a>
-        <!-- ScrollToTop Button END-->
-
-
         <!-- Footer - bloc-2 Show other reviews-->
-        <div class="bloc bgc-white l-bloc" id="bloc-2">
-            <div class="container bloc-md">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h1 class=" mg-lg">
-                            Reviews
-                        </h1>
-                        {% for review in reviews %}
-                            {% if review.movie_id == movie.id %}
-                                <div class="panel">
-                                    <div class="panel-heading">
-                                        <h3 class="mg-clear ">
-                                            {{ review.title }}  rating: {{ review.rate }}
-                                        </h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <p>
-                                            {{ review.content }}
-                                        </p>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
+<div class="bloc bloc-fill-screen bg-lines-dl2-bg l-bloc bg-repeat none" id="bloc-3">
+    <div class="container fill-bloc-top-edge">
+        <div class="row">
+            <div class="col-12">
+                {% for review in reviews %}
+                {% if review.movie_id == movie.id %}
+                <div class="card">
+                    <div class="card-header">   
+                        <h3 class="mg-clear h3-review-style">
+                         {{ review.title }}  rating: {{ review.rate }}                
+                        </h3>
                     </div>
+                    <div class="card-body">
+                        <p class="p-bloc-3-style">
+                            {{ review.content }}
+                        </p>
+                    </div>   
                 </div>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
+    </div>
+</div>
         <!-- Footer - bloc-2 END -->
     {% endfor %}
     <!-- Footer - bloc-3 Review form-->
